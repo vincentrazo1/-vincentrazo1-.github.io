@@ -1,0 +1,501 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red253\green143\blue63;\red31\green31\blue36;\red252\green106\blue93;
+\red255\green255\blue255;\red252\green95\blue163;\red208\green168\blue255;\red93\green216\blue255;\red65\green161\blue192;
+\red158\green241\blue221;\red208\green191\blue105;\red103\green183\blue164;\red103\green183\blue164;\red161\green103\blue230;
+\red108\green121\blue134;\red161\green103\blue230;\red208\green191\blue105;}
+{\*\expandedcolortbl;;\csgenericrgb\c99131\c56076\c24611;\csgenericrgb\c12054\c12284\c14131;\csgenericrgb\c98912\c41558\c36568;
+\csgenericrgb\c100000\c100000\c100000\c85000;\csgenericrgb\c98839\c37355\c63833;\csgenericrgb\c81681\c65692\c99927;\csgenericrgb\c36295\c84643\c99897;\csgenericrgb\c25490\c63137\c75294;
+\csgenericrgb\c62145\c94386\c86819;\csgenericrgb\c81498\c74939\c41233;\csgenericrgb\c40392\c71765\c64314;\csgenericrgb\c40538\c71705\c64209;\csgenericrgb\c63232\c40219\c90115;
+\csgenericrgb\c42394\c47462\c52518;\csgenericrgb\c63137\c40392\c90196;\csgenericrgb\c81569\c74902\c41177;}
+\margl1440\margr1440\vieww16900\viewh20260\viewkind0
+\deftab593
+\pard\tx593\pardeftab593\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 #include \cf4 <iostream>\cf5 \
+\cf2 #include \cf4 <fstream>\cf5 \
+\cf2 #include \cf4 <cctype>\cf5 \
+\cf2 #include \cf4 <iomanip>\cf5 \
+\cf2 #include \cf4 <string>\cf5 \
+\
+\
+
+\f1\b \cf6 using
+\f0\b0 \cf5  
+\f1\b \cf6 namespace
+\f0\b0 \cf5  \cf7 std\cf5 ;\
+\
+
+\f1\b \cf6 struct
+\f0\b0 \cf5  \cf8 accountType\cf5  \{\
+    
+\f1\b \cf6 int
+\f0\b0 \cf5  \cf9 accountNumber\cf5 ;\
+    \cf7 string\cf5  \cf9 firstname\cf5 ;\
+    \cf7 string\cf5  \cf9 lastname\cf5 ;\
+    
+\f1\b \cf6 double
+\f0\b0 \cf5  \cf9 balance\cf5 ;\
+    
+\f1\b \cf6 int
+\f0\b0 \cf5  \cf9 flag\cf5 ;\
+\};\
+\
+
+\f1\b \cf6 void
+\f0\b0 \cf5  \cf9 printOptionsMenu\cf5 ();\
+
+\f1\b \cf6 int
+\f0\b0 \cf5  \cf9 getArrayIndexOfAccount\cf5 (
+\f1\b \cf6 int
+\f0\b0 \cf5  accountNumber, \cf10 accountType\cf5  accounts[], 
+\f1\b \cf6 int
+\f0\b0 \cf5  length);\
+
+\f1\b \cf6 void
+\f0\b0 \cf5  \cf9 depositMoney\cf5 (
+\f1\b \cf6 int
+\f0\b0 \cf5  index, 
+\f1\b \cf6 double
+\f0\b0 \cf5  amount, \cf10 accountType\cf5  accounts[], 
+\f1\b \cf6 int
+\f0\b0 \cf5  length);\
+
+\f1\b \cf6 void
+\f0\b0 \cf5  \cf9 withdrawMoney\cf5 (
+\f1\b \cf6 int
+\f0\b0 \cf5  index, 
+\f1\b \cf6 double
+\f0\b0 \cf5  amount, \cf10 accountType\cf5  accounts[], 
+\f1\b \cf6 int
+\f0\b0 \cf5  length);\
+
+\f1\b \cf6 void
+\f0\b0 \cf5  \cf9 openAccount\cf5 (\cf10 accountType\cf5  accounts[], 
+\f1\b \cf6 int
+\f0\b0 \cf5  length);\
+
+\f1\b \cf6 void
+\f0\b0 \cf5  \cf9 closeAccount\cf5 (\cf10 accountType\cf5  accounts[], 
+\f1\b \cf6 int
+\f0\b0 \cf5  length);\
+
+\f1\b \cf6 void
+\f0\b0 \cf5  \cf9 sortBalances\cf5 (\cf10 accountType\cf5  accounts[], 
+\f1\b \cf6 int
+\f0\b0 \cf5  length);\
+
+\f1\b \cf6 void
+\f0\b0 \cf5  \cf9 sortNames\cf5 (\cf10 accountType\cf5  accounts[], 
+\f1\b \cf6 int
+\f0\b0 \cf5  length);\
+
+\f1\b \cf6 void
+\f0\b0 \cf5  \cf9 initialization\cf5 ();\
+
+\f1\b \cf6 int
+\f0\b0 \cf5  \cf9 arrayLength\cf5  = \cf11 0\cf5 ;\
+\cf10 accountType\cf5  \cf9 accounts\cf5 [\cf11 1000\cf5 ];\
+
+\f1\b \cf6 int
+\f0\b0 \cf5  \cf9 option\cf5  = \cf11 0\cf5 ;\
+
+\f1\b \cf6 bool
+\f0\b0 \cf5  \cf9 running\cf5  = 
+\f1\b \cf6 true
+\f0\b0 \cf5 ;\
+\
+
+\f1\b \cf6 int
+\f0\b0 \cf5  \cf9 main\cf5 () \{\
+    \cf12 initialization\cf5 ();\
+    
+\f1\b \cf6 while
+\f0\b0 \cf5  (\cf13 running\cf5  == 
+\f1\b \cf6 true
+\f0\b0 \cf5 ) \{\
+        \cf12 printOptionsMenu\cf5 ();\
+        
+\f1\b \cf6 if
+\f0\b0 \cf5  (\cf13 option\cf5  == \cf11 1\cf5 ) \{\
+            
+\f1\b \cf6 int
+\f0\b0 \cf5  aNumber;\
+            
+\f1\b \cf6 int
+\f0\b0 \cf5  aIndex;\
+            
+\f1\b \cf6 int
+\f0\b0 \cf5  amount;\
+            \cf14 cout\cf5  << \cf4 "What is your account number?\\n"\cf5 ;\
+            \cf14 cin\cf5  >> aNumber;\
+            \cf14 cout\cf5  << \cf4 "How much would you like to deposit?\\n"\cf5 ;\
+            \cf14 cin\cf5  >> amount;\
+            aIndex = \cf12 getArrayIndexOfAccount\cf5 (aNumber, \cf13 accounts\cf5 , \cf13 arrayLength\cf5 );\
+            \cf12 depositMoney\cf5 (aIndex, amount, \cf13 accounts\cf5 , \cf13 arrayLength\cf5 );\
+        \}\
+        
+\f1\b \cf6 else
+\f0\b0 \cf5  
+\f1\b \cf6 if
+\f0\b0 \cf5  (\cf13 option\cf5  == \cf11 2\cf5 ) \{\
+            
+\f1\b \cf6 int
+\f0\b0 \cf5  aNumber;\
+            
+\f1\b \cf6 int
+\f0\b0 \cf5  aIndex;\
+            
+\f1\b \cf6 int
+\f0\b0 \cf5  amount;\
+            \cf14 cout\cf5  << \cf4 "What is your account number?\\n"\cf5 ;\
+            \cf14 cin\cf5  >> aNumber;\
+            \cf14 cout\cf5  << \cf4 "How much would you like to withdraw?\\n"\cf5 ;\
+            \cf14 cin\cf5  >> amount;\
+            aIndex = \cf12 getArrayIndexOfAccount\cf5 (aNumber, \cf13 accounts\cf5 , \cf13 arrayLength\cf5 );\
+            \cf12 withdrawMoney\cf5 (aIndex, amount, \cf13 accounts\cf5 , \cf13 arrayLength\cf5 );\
+        \}\
+        
+\f1\b \cf6 else
+\f0\b0 \cf5  
+\f1\b \cf6 if
+\f0\b0 \cf5  (\cf13 option\cf5  == \cf11 3\cf5 ) \{\
+            \cf15 //theres no transfer money function so you guys figure out what to do here.\cf5 \
+        \}\
+        
+\f1\b \cf6 else
+\f0\b0 \cf5  
+\f1\b \cf6 if
+\f0\b0 \cf5  (\cf13 option\cf5  == \cf11 4\cf5 ) \{\
+            \cf15 //show transactions\cf5 \
+        \}\
+        
+\f1\b \cf6 else
+\f0\b0 \cf5  
+\f1\b \cf6 if
+\f0\b0 \cf5  (\cf13 option\cf5  == \cf11 5\cf5 ) \{\
+            \cf12 openAccount\cf5 (\cf13 accounts\cf5 , \cf13 arrayLength\cf5 );\
+        \}\
+        
+\f1\b \cf6 else
+\f0\b0 \cf5  
+\f1\b \cf6 if
+\f0\b0 \cf5  (\cf13 option\cf5  == \cf11 6\cf5 ) \{\
+            \cf12 closeAccount\cf5 (\cf13 accounts\cf5 , \cf13 arrayLength\cf5 );\
+        \}\
+        
+\f1\b \cf6 else
+\f0\b0 \cf5  
+\f1\b \cf6 if
+\f0\b0 \cf5  (\cf13 option\cf5  == \cf11 7\cf5 ) \{\
+            \cf12 sortBalances\cf5 (\cf13 accounts\cf5 , \cf13 arrayLength\cf5 );\
+        \}\
+        
+\f1\b \cf6 else
+\f0\b0 \cf5  
+\f1\b \cf6 if
+\f0\b0 \cf5  (\cf13 option\cf5  == \cf11 8\cf5 ) \{\
+            \cf12 sortNames\cf5 (\cf13 accounts\cf5 , \cf13 arrayLength\cf5 );\
+        \}\
+        
+\f1\b \cf6 else
+\f0\b0 \cf5  
+\f1\b \cf6 if
+\f0\b0 \cf5  (\cf13 option\cf5  == \cf11 9\cf5 ) \{\
+            \cf13 running\cf5  = 
+\f1\b \cf6 false
+\f0\b0 \cf5 ;\
+        \}\
+        
+\f1\b \cf6 else
+\f0\b0 \cf5  \{\
+            \cf14 cout\cf5  << \cf4 "Error choose again.\\n"\cf5 ;\
+        \}\
+    \}\
+    
+\f1\b \cf6 return
+\f0\b0 \cf5  \cf11 0\cf5 ;\
+\}\
+\
+\
+
+\f1\b \cf6 void
+\f0\b0 \cf5  \cf9 initialization\cf5 () \{\
+    \cf7 ifstream\cf5  file;\
+    file.\cf16 open\cf5 (\cf4 "accounts.txt"\cf5 );\
+    file.\cf16 ignore\cf5 (\cf11 1000\cf5 , \cf17 '\\n'\cf5 );\
+    
+\f1\b \cf6 while
+\f0\b0 \cf5  (file >> \cf13 arrayLength\cf5 ) \{\
+        file >> \cf13 accounts\cf5 [\cf13 arrayLength\cf5  - \cf11 1\cf5 ].\cf13 accountNumber\cf5 ;\
+        file >> \cf13 accounts\cf5 [\cf13 arrayLength\cf5  - \cf11 1\cf5 ].\cf13 firstname\cf5 ;\
+        file >> \cf13 accounts\cf5 [\cf13 arrayLength\cf5  - \cf11 1\cf5 ].\cf13 lastname\cf5 ;\
+        file >> \cf13 accounts\cf5 [\cf13 arrayLength\cf5  - \cf11 1\cf5 ].\cf13 balance\cf5 ;\
+        file >> \cf13 accounts\cf5 [\cf13 arrayLength\cf5  - \cf11 1\cf5 ].\cf13 flag\cf5 ;\
+    \}\
+    file.\cf16 close\cf5 ();\
+\}\
+\
+
+\f1\b \cf6 void
+\f0\b0 \cf5  \cf9 printOptionsMenu\cf5 () \{\
+    \cf14 cout\cf5  << \cf4 "Please choose one of the following options:\\n"\cf5 ;\
+    \cf14 cout\cf5  << \cf4 "1. Deposit Money\\n"\cf5 ;\
+    \cf14 cout\cf5  << \cf4 "2. Withdraw Money\\n"\cf5 ;\
+    \cf14 cout\cf5  << \cf4 "3. Transfer Money\\n"\cf5 ;\
+    \cf14 cout\cf5  << \cf4 "4. Show Transactions\\n"\cf5 ;\
+    \cf14 cout\cf5  << \cf4 "5. Open An Account\\n"\cf5 ;\
+    \cf14 cout\cf5  << \cf4 "6. Close An Account\\n"\cf5 ;\
+    \cf14 cout\cf5  << \cf4 "7. Sort Accounts form largest balance to smallest\\n"\cf5 ;\
+    \cf14 cout\cf5  << \cf4 "8. Sort Accounts in alphabetical order using account owners name\\n"\cf5 ;\
+    \cf14 cout\cf5  << \cf4 "9. Quit Program\\n"\cf5 ;\
+    \cf14 cin\cf5  >> \cf13 option\cf5 ;\
+\}\
+\
+
+\f1\b \cf6 int
+\f0\b0 \cf5  \cf9 getArrayIndexOfAccount\cf5 (
+\f1\b \cf6 int
+\f0\b0 \cf5  accountNumber, \cf10 accountType\cf5  account[], 
+\f1\b \cf6 int
+\f0\b0 \cf5  length) \{\
+    
+\f1\b \cf6 for
+\f0\b0 \cf5  (
+\f1\b \cf6 int
+\f0\b0 \cf5  i = \cf11 0\cf5 ; i < length; i++) \{\
+        
+\f1\b \cf6 if
+\f0\b0 \cf5  (accountNumber == account[i].\cf13 accountNumber\cf5 ) \{\
+            
+\f1\b \cf6 return
+\f0\b0 \cf5  i;\
+        \}\
+    \}\
+    
+\f1\b \cf6 return
+\f0\b0 \cf5  -\cf11 1\cf5 ;\
+\}\
+\
+
+\f1\b \cf6 void
+\f0\b0 \cf5  \cf9 depositMoney\cf5 (
+\f1\b \cf6 int
+\f0\b0 \cf5  index, 
+\f1\b \cf6 double
+\f0\b0 \cf5  amount, \cf10 accountType\cf5  account[], 
+\f1\b \cf6 int
+\f0\b0 \cf5  length) \{\
+    
+\f1\b \cf6 if
+\f0\b0 \cf5  (account[index].\cf13 flag\cf5  == \cf11 1\cf5 ) \{\
+        \cf14 cout\cf5  << \cf4 "Your account is flagged.\\n"\cf5  << \cf4 "Transaction canceled\\n"\cf5 ;\
+    \}\
+    
+\f1\b \cf6 else
+\f0\b0 \cf5  \{\
+        account[index].\cf13 balance\cf5  = account[index].\cf13 balance\cf5  + amount;\
+    \}\
+    \cf15 //"save" the transaction data.\cf5 \
+\}\
+\
+
+\f1\b \cf6 void
+\f0\b0 \cf5  \cf9 withdrawMoney\cf5 (
+\f1\b \cf6 int
+\f0\b0 \cf5  index, 
+\f1\b \cf6 double
+\f0\b0 \cf5  amount, \cf10 accountType\cf5  account[], 
+\f1\b \cf6 int
+\f0\b0 \cf5  length) \{\
+    
+\f1\b \cf6 if
+\f0\b0 \cf5  (account[index].\cf13 flag\cf5  == \cf11 1\cf5 ) \{\
+        \cf14 cout\cf5  << \cf4 "Your account is flagged.\\n"\cf5  << \cf4 "Transaction canceled\\n"\cf5 ;\
+    \}\
+    
+\f1\b \cf6 if
+\f0\b0 \cf5  (amount >= account[index].\cf13 balance\cf5 ) \{\
+        \cf14 cout\cf5  << \cf4 "You cannot withdraw that amount\\n"\cf5 ;\
+    \}\
+    
+\f1\b \cf6 else
+\f0\b0 \cf5  \{\
+        account[index].\cf13 balance\cf5  = account[index].\cf13 balance\cf5  - amount;\
+    \}\
+    \cf15 //"save" the transaction data.\cf5 \
+\}\
+\
+
+\f1\b \cf6 void
+\f0\b0 \cf5  \cf9 openAccount\cf5 (\cf10 accountType\cf5  account[], 
+\f1\b \cf6 int
+\f0\b0 \cf5  length) \{\
+    
+\f1\b \cf6 int
+\f0\b0 \cf5  aNumber = \cf11 0\cf5 ;\
+    \cf7 string\cf5  firstN = \cf4 ""\cf5 ;\
+    \cf7 string\cf5  lastN = \cf4 ""\cf5 ;\
+    
+\f1\b \cf6 double
+\f0\b0 \cf5  balance = \cf11 0\cf5 ;\
+\
+    \cf14 cout\cf5  << \cf4 "Please enter a random 5-diget number.\\n"\cf5 ;\
+    \cf14 cin\cf5  >> aNumber;\
+    \cf14 cout\cf5  << \cf4 "Please enter your first name.\\n"\cf5 ;\
+    \cf14 cin\cf5  >> firstN;\
+    \cf14 cout\cf5  << \cf4 "Please enter your last name.\\n"\cf5 ;\
+    \cf14 cin\cf5  >> lastN;\
+    \cf14 cout\cf5  << \cf4 "Please enter your starting balance ammount."\cf5 ;\
+    \cf14 cin\cf5  >> balance;\
+    account[length].\cf13 accountNumber\cf5  = aNumber;\
+    account[length].\cf13 firstname\cf5  = firstN;\
+    account[length].\cf13 lastname\cf5  = lastN;\
+    account[length].\cf13 balance\cf5  = balance;\
+    account[length].\cf13 flag\cf5  = \cf11 0\cf5 ;\
+    \
+\}\
+\
+
+\f1\b \cf6 void
+\f0\b0 \cf5  \cf9 closeAccount\cf5 (\cf10 accountType\cf5  account[], 
+\f1\b \cf6 int
+\f0\b0 \cf5  length) \{\
+    
+\f1\b \cf6 int
+\f0\b0 \cf5  aNumber = \cf11 0\cf5 ;\
+    
+\f1\b \cf6 int
+\f0\b0 \cf5  aIndex = \cf11 0\cf5 ;\
+    \cf14 cout\cf5  << \cf4 "What is your account number?"\cf5 ;\
+    \cf14 cin\cf5  >> aNumber;\
+    aIndex = \cf12 getArrayIndexOfAccount\cf5 (aNumber, account, \cf13 arrayLength\cf5 );\
+    
+\f1\b \cf6 if
+\f0\b0 \cf5  (account[aIndex].\cf13 balance\cf5  != \cf11 0\cf5 ) \{\
+        \cf14 cout\cf5  << \cf4 "You are not able to close your account at this time.\\n"\cf5 ;\
+    \}\
+    
+\f1\b \cf6 else
+\f0\b0 \cf5  
+\f1\b \cf6 if
+\f0\b0 \cf5  (account[aIndex].\cf13 flag\cf5  == \cf11 1\cf5 ) \{\
+        \cf14 cout\cf5  << \cf4 "Your account is already closed.\\n"\cf5 ;\
+    \}\
+    
+\f1\b \cf6 else
+\f0\b0 \cf5  \{\
+        account[aIndex].\cf13 flag\cf5  = \cf11 1\cf5 ;\
+        \cf14 cout\cf5  << \cf4 "Your account has been close.\\n"\cf5 ;\
+    \}\
+\}\
+\
+
+\f1\b \cf6 void
+\f0\b0 \cf5  \cf9 sortBalances\cf5 (\cf10 accountType\cf5  account[], 
+\f1\b \cf6 int
+\f0\b0 \cf5  length) \{\
+    
+\f1\b \cf6 int
+\f0\b0 \cf5  sortOrder[\cf11 1000\cf5 ];\
+    
+\f1\b \cf6 for
+\f0\b0 \cf5  (
+\f1\b \cf6 int
+\f0\b0 \cf5  i = \cf11 0\cf5 ; i < length; i++) \{\
+        sortOrder[i] = i;\
+    \}\
+    
+\f1\b \cf6 for
+\f0\b0 \cf5  (
+\f1\b \cf6 int
+\f0\b0 \cf5  i = \cf11 0\cf5 ; i < length; i++) \{\
+        
+\f1\b \cf6 int
+\f0\b0 \cf5  minimum = i;\
+        
+\f1\b \cf6 int
+\f0\b0 \cf5  temp;\
+        
+\f1\b \cf6 for
+\f0\b0 \cf5  (
+\f1\b \cf6 int
+\f0\b0 \cf5  j = \cf11 1\cf5 ; j < length + \cf11 1\cf5 ; i++) \{\
+            
+\f1\b \cf6 if
+\f0\b0 \cf5  (account[j].\cf13 balance\cf5  < account[i].\cf13 balance\cf5 ) \{\
+                minimum = j;\
+                temp = sortOrder[i];\
+                sortOrder[i] = sortOrder[minimum];\
+                sortOrder[minimum] = temp;\
+            \}\
+        \}\
+    \}\
+    \cf14 cout\cf5  << \cf4 "Account FirstName LastName Balance Flag\\n"\cf5 ;\
+    
+\f1\b \cf6 for
+\f0\b0 \cf5  (
+\f1\b \cf6 int
+\f0\b0 \cf5  i = \cf11 0\cf5 ; i < length; i++) \{\
+        \cf14 cout\cf5  << account[sortOrder[i]].\cf13 accountNumber\cf5  << \cf4 " "\cf5 \
+            << account[sortOrder[i]].\cf13 firstname\cf5  << \cf4 " "\cf5 \
+            << account[sortOrder[i]].\cf13 lastname\cf5  << \cf4 " "\cf5 \
+            << account[sortOrder[i]].\cf13 balance\cf5  << \cf4 " "\cf5 \
+            << account[sortOrder[i]].\cf13 flag\cf5  << \cf4 " "\cf5  << \cf16 endl\cf5 ;\
+    \}\
+\}\
+\
+
+\f1\b \cf6 void
+\f0\b0 \cf5  \cf9 sortNames\cf5 (\cf10 accountType\cf5  account[], 
+\f1\b \cf6 int
+\f0\b0 \cf5  length) \{\
+    
+\f1\b \cf6 int
+\f0\b0 \cf5  sortOrder[\cf11 1000\cf5 ];\
+    
+\f1\b \cf6 for
+\f0\b0 \cf5  (
+\f1\b \cf6 int
+\f0\b0 \cf5  i = \cf11 0\cf5 ; i < length; i++) \{\
+        sortOrder[i] = i;\
+    \}\
+    
+\f1\b \cf6 for
+\f0\b0 \cf5  (
+\f1\b \cf6 int
+\f0\b0 \cf5  i = \cf11 0\cf5 ; i < length; i++) \{\
+        
+\f1\b \cf6 int
+\f0\b0 \cf5  minimum = i;\
+        
+\f1\b \cf6 int
+\f0\b0 \cf5  temp;\
+        
+\f1\b \cf6 for
+\f0\b0 \cf5  (
+\f1\b \cf6 int
+\f0\b0 \cf5  j = \cf11 1\cf5 ; j < length + \cf11 1\cf5 ; i++) \{\
+            
+\f1\b \cf6 if
+\f0\b0 \cf5  (account[j].\cf13 firstname\cf5  < account[i].\cf13 firstname\cf5 ) \{\
+                minimum = j;\
+                temp = sortOrder[i];\
+                sortOrder[i] = sortOrder[minimum];\
+                sortOrder[minimum] = temp;\
+            \}\
+        \}\
+    \}\
+    \cf14 cout\cf5  << \cf4 "Account FirstName LastName Balance Flag\\n"\cf5 ;\
+    
+\f1\b \cf6 for
+\f0\b0 \cf5  (
+\f1\b \cf6 int
+\f0\b0 \cf5  i = \cf11 0\cf5 ; i < length; i++) \{\
+        \cf14 cout\cf5  << account[sortOrder[i]].\cf13 accountNumber\cf5  << \cf4 " "\cf5 \
+            << account[sortOrder[i]].\cf13 firstname\cf5  << \cf4 " "\cf5 \
+            << account[sortOrder[i]].\cf13 lastname\cf5  << \cf4 " "\cf5 \
+            << account[sortOrder[i]].\cf13 balance\cf5  << \cf4 " "\cf5 \
+            << account[sortOrder[i]].\cf13 flag\cf5  << \cf4 " "\cf5  << \cf16 endl\cf5 ;\
+    \}\
+\}}
